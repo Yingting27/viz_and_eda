@@ -130,3 +130,15 @@ weather_df |>  filter(name != "CentralPark_NY") |>
   geom_point(alpha=0.7, size=0.5 )
 ```
 
+
+
+
+```{r}
+weather_df |> 
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_hex()
+
+
+```
+1
+

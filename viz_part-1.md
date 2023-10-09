@@ -244,3 +244,13 @@ weather_df |>  filter(name != "CentralPark_NY") |>
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
 ![](viz_part-1_files/figure-gfm/unnamed-chunk-11-4.png)<!-- -->
+
+``` r
+weather_df |> 
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_hex()
+```
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_binhex()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-12-1.png)<!-- --> 1
