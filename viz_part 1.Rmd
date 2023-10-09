@@ -46,7 +46,32 @@ Pipes and stuff
 
 ```{r}
 weather_df |> 
-  ggplot(aes(x = tmin, y = tmax)) + gemo_point()
+  filter(name == "CentralPark_NY") |> 
+ggplot(aes(x = tmin, y = tmax)) + geom_point()
 ```
 
+```{r}
+ggp_nyc_weather = 
+  weather_df |> 
+    filter(name == "CentralPark_NY") |> 
+ggplot(aes(x = tmin, y = tmax)) + geom_point()
+#this doesnt show the plot, just create a plot data, and need to type ggp_nyc_weather to show the plot
+ggp_nyc_weather
+```
+
+
+## Fancy plot
+```{r}
+ggplot(weather_df, aes(x= tmin, y = tmax, color = name)) + geom_point() + geom_smooth()
+# name variable with color
+#geom_smooth: fix smooth line with plots (create smooth line)
+```
+
+```{r}
+ggplot(weather_df, aes(x= tmin, y = tmax)) + geom_point(aes(color = name)) + geom_smooth()
+#mention particular color lines
+#the difference between these two codes: the first one is to establish smooth lines everywhere in plots, both to the points and the scatter plot geometry that was making and to the smooth curve that was going through it (have three separate lines with three separate colors). the second one, only the points are being highlighted by color and the smooth is not
+
+
+```
 
