@@ -134,3 +134,113 @@ ggplot(weather_df, aes(x= tmin, y = tmax)) + geom_point(aes(color = name)) + geo
 #mention particular color lines
 #the difference between these two codes: the first one is to establish smooth lines everywhere in plots, both to the points and the scatter plot geometry that was making and to the smooth curve that was going through it (have three separate lines with three separate colors). the second one, only the points are being highlighted by color and the smooth is not
 ```
+
+``` r
+ggplot(weather_df, aes(x= tmin, y = tmax)) + geom_point(aes(color = name) , alpha = 0.3) + geom_smooth(se = FALSE)
+```
+
+    ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+``` r
+#alpha to make plot more transparent, 0.3, which means 70% ok
+```
+
+Plot with facets
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) + geom_point(alpha = 0.3) + geom_smooth() +
+  facet_grid(. ~ name)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+``` r
+#there are still too much events, using facet function to show each variable events, using "."to say 'put everything on this row' and ~ name means sepate name to each row (show name in each column)
+
+ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) + geom_point(alpha = 0.3) + geom_smooth() +
+  facet_grid(name ~ . )
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+    ## Removed 17 rows containing missing values (`geom_point()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
+
+``` r
+# this would give three names of rows
+```
+
+let’s try a different plot. temps are boring
+
+``` r
+ggplot(weather_df, aes(x = date, y = tmax, color = name)) + geom_point(aes(size = prcp), alpha=0.3) + geom_smooth() +
+  facet_grid((. ~ name))
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+
+    ## Warning: Removed 19 rows containing missing values (`geom_point()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+try assigning a specific color
+
+``` r
+weather_df |> 
+  filter(name == "CentralPark_NY") |> 
+  ggplot(aes(x = date, y = tmax, color = "blue")) +
+  geom_point( )
+```
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+``` r
+#one way: adding color =  in geom_point. when you doing the color inside ggplot, this would not do that as you are taking variable in the dataset and mapping them on colors(be careful for this)
+
+# if you have three options:
+weather_df |> 
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point( )
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
+
+``` r
+# if you have two options:
+weather_df |>  filter(name != "CentralPark_NY") |>
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point( )
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->
+
+``` r
+#always say alpha size
+weather_df |>  filter(name != "CentralPark_NY") |>
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point(alpha=0.7, size=0.5 )
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-11-4.png)<!-- -->

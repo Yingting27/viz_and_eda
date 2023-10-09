@@ -75,3 +75,58 @@ ggplot(weather_df, aes(x= tmin, y = tmax)) + geom_point(aes(color = name)) + geo
 
 ```
 
+
+```{r}
+ggplot(weather_df, aes(x= tmin, y = tmax)) + geom_point(aes(color = name) , alpha = 0.3) + geom_smooth(se = FALSE)
+
+#alpha to make plot more transparent, 0.3, which means 70% ok
+```
+
+Plot with facets
+
+```{r}
+ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) + geom_point(alpha = 0.3) + geom_smooth() +
+  facet_grid(. ~ name)
+
+#there are still too much events, using facet function to show each variable events, using "."to say 'put everything on this row' and ~ name means sepate name to each row (show name in each column)
+
+ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) + geom_point(alpha = 0.3) + geom_smooth() +
+  facet_grid(name ~ . )
+# this would give three names of rows
+
+```
+
+
+let's try a different plot. temps are boring
+
+```{r}
+ggplot(weather_df, aes(x = date, y = tmax, color = name)) + geom_point(aes(size = prcp), alpha=0.3) + geom_smooth() +
+  facet_grid((. ~ name))
+```
+
+try assigning a specific color
+
+```{r}
+weather_df |> 
+  filter(name == "CentralPark_NY") |> 
+  ggplot(aes(x = date, y = tmax, color = "blue")) +
+  geom_point( )
+
+#one way: adding color =  in geom_point. when you doing the color inside ggplot, this would not do that as you are taking variable in the dataset and mapping them on colors(be careful for this)
+
+# if you have three options:
+weather_df |> 
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point( )
+
+# if you have two options:
+weather_df |>  filter(name != "CentralPark_NY") |>
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point( )
+
+#always say alpha size
+weather_df |>  filter(name != "CentralPark_NY") |>
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point(alpha=0.7, size=0.5 )
+```
+
