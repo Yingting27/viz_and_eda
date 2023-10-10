@@ -1,5 +1,5 @@
 ---
-title: "Viz part 1"
+title: "Viz part 2"
 author: "Yingting Zhang"
 date: "2023-10-08"
 output: github_document
@@ -7,7 +7,6 @@ output: github_document
 
 ```{r}
 library(tidyverse)
-library(ggridges)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -41,181 +40,72 @@ weather_df =
 #the things in c is monitor
 ```
 
-Let's make a plot!
 
-```{r}
-ggplot(weather_df, aes(x = tmin, y = tmax)) + geom_point()
-
-#before geom, this just a picture without any plot or data in it, because we dont show what types of plot we want
-```
-
-Pipes and stuff
+## Same plot from last time
 
 ```{r}
 weather_df |> 
-  filter(name == "CentralPark_NY") |> 
-ggplot(aes(x = tmin, y = tmax)) + geom_point()
-```
-
-```{r}
-ggp_nyc_weather = 
-  weather_df |> 
-    filter(name == "CentralPark_NY") |> 
-ggplot(aes(x = tmin, y = tmax)) + geom_point()
-#this doesnt show the plot, just create a plot data, and need to type ggp_nyc_weather to show the plot
-ggp_nyc_weather
-```
-
-
-## Fancy plot
-```{r}
-ggplot(weather_df, aes(x= tmin, y = tmax, color = name)) + geom_point() + geom_smooth()
-# name variable with color
-#geom_smooth: fix smooth line with plots (create smooth line)
-```
-
-```{r}
-ggplot(weather_df, aes(x= tmin, y = tmax)) + geom_point(aes(color = name)) + geom_smooth()
-#mention particular color lines
-#the difference between these two codes: the first one is to establish smooth lines everywhere in plots, both to the points and the scatter plot geometry that was making and to the smooth curve that was going through it (have three separate lines with three separate colors). the second one, only the points are being highlighted by color and the smooth is not
-
-
-```
-
-
-```{r}
-ggplot(weather_df, aes(x= tmin, y = tmax)) + geom_point(aes(color = name) , alpha = 0.3) + geom_smooth(se = FALSE)
-
-#alpha to make plot more transparent, 0.3, which means 70% ok
-```
-
-Plot with facets
-
-```{r}
-ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) + geom_point(alpha = 0.3) + geom_smooth() +
-  facet_grid(. ~ name)
-
-#there are still too much events, using facet function to show each variable events, using "."to say 'put everything on this row' and ~ name means sepate name to each row (show name in each column)
-
-ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) + geom_point(alpha = 0.3) + geom_smooth() +
-  facet_grid(name ~ . )
-# this would give three names of rows
-
-```
-
-
-let's try a different plot. temps are boring
-
-```{r}
-ggplot(weather_df, aes(x = date, y = tmax, color = name)) + geom_point(aes(size = prcp), alpha=0.3) + geom_smooth() +
-  facet_grid((. ~ name))
-```
-
-try assigning a specific color
-
-```{r}
-weather_df |> 
-  filter(name == "CentralPark_NY") |> 
-  ggplot(aes(x = date, y = tmax, color = "blue")) +
-  geom_point( )
-
-#one way: adding color =  in geom_point. when you doing the color inside ggplot, this would not do that as you are taking variable in the dataset and mapping them on colors(be careful for this)
-
-# if you have three options:
-weather_df |> 
-  ggplot(aes(x = date, y = tmax, color = name)) +
-  geom_point( )
-
-# if you have two options:
-weather_df |>  filter(name != "CentralPark_NY") |>
-  ggplot(aes(x = date, y = tmax, color = name)) +
-  geom_point( )
-
-#always say alpha size
-weather_df |>  filter(name != "CentralPark_NY") |>
-  ggplot(aes(x = date, y = tmax, color = name)) +
-  geom_point(alpha=0.7, size=0.5 )
-```
-
-
-
-hex plot
-```{r}
-weather_df |> 
-  ggplot(aes(x = tmin, y = tmax)) +
-  geom_hex()
-
-
+  ggplot(aes(x = tmin, y = tmax, color = name)) + geom_point(alpha=0.5)+ labs(
+    title = "Temperature plot",
+    x = "Min daily temp (Degrees C)",
+    y ="Min daily temp",
+    color = "Location",
+    caption = "Max vs. min daily temp in three locations; data from rnoaa"
+)
+  
+# do the label: labs function to x,y and color
+#adding message below the x: caption function
+#adding title: title function
 ```
 
 ```{r}
 weather_df |> 
-  filter(name =="Molokai_HI") |> 
-  ggplot(aes(x = date, y = tmax)) + geom_line(alpha=.5)+geom_point(size=0.5)
+  ggplot(aes(x = tmin, y = tmax, color = name)) + geom_point(alpha=0.5)+ labs(
+    title = "Temperature plot",
+    x = "Min daily temp (Degrees C)",
+    y ="Min daily temp",
+    color = "Location",
+    caption = "Max vs. min daily temp in three locations; data from rnoaa"
+)+
+  scale_x_continuous(
+    breaks = c(-15,0,15),
+    labels=c("-15 C", "0", "15")
+  )+
+  scale_y_continuous(
+    position = "right",
+    trans = "sqrt"
+  )
+
+#scale:try to modify whatever the default mapping between a variable and the aesthetic that it's mapped onto sort of how those behave
+
+#breaks: where you want to break as exist
+
+#position: move to the place you want (right/left)
+
+#trans function: transfer the numbers to what types of format, like sqrt
+
+#limit function: limit the range you want or you can filter the range by using filter to limit the range value of variables
+#like:   filter(tmax >=20, tmax <=30)
 ```
 
 
+what about colors...
 
-## univariate plotiing
 
-histogram
-
-```{r}
-ggplot(weather_df, aes(x = tmax, fill = name)) + geom_histogram(position  = "dodge" )
-#position  = "dodge" means avoiding bars would not overlap each other
-
-#if comparing variables, you can use other plot, instead of histogram which is hard to see
-
-ggplot(weather_df, aes(x = tmax, fill = name)) + geom_density(alpha=.3, adjust=.5)
-#get smooth histogram, good to compare
-#adjust to limit condition and change plot??????
-```
-
-using boxplots!!!
 
 ```{r}
-ggplot(weather_df, aes(y = tmax, x = name)) + geom_boxplot()
-```
-
-
-violin plots?
-```{r}
-ggplot(weather_df, aes(y = tmax, x = name)) + geom_violin()
-```
-
-ridge plot
-
-```{r}
-ggplot(weather_df, aes(x = tmax, y = name)) + geom_density_ridges()
-```
-
-
-## saving and embedding plots
-
-```{r}
-ggp_weather = 
 weather_df |> 
-  ggplot(aes(x = tmin, y = tmax))+ geom_point()
-
-ggp_weather
-
-ggsave("results/ggp_weather.pdf", ggp_weather)
-#just name it and save it as the types of file what you want
-
+  ggplot(aes(x = tmin, y = tmax, color = name)) + geom_point(alpha=0.5)+ labs(
+    title = "Temperature plot",
+    x = "Min daily temp (Degrees C)",
+    y ="Min daily temp",
+    color = "Location",
+    caption = "Max vs. min daily temp in three") + 
+  viridis::scale_color_viridis(discrete = TRUE)
+ # use viridis color package 
 ```
 
 
-```{r, fig.width=12, fig.height=12}
-ggp_weather
-#make the picture bigger and heigter, change the size of all picture
-
-```
 
 
-```{r, fig.width=6, fig.asp=.6}
-ggp_weather
-#asep: So how tall the plot is divided by how wide the plot is?
-
-#So 0.6 means a little bit wider than it is tall.
-
-```
+## Themes
