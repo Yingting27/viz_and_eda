@@ -132,7 +132,7 @@ weather_df |>  filter(name != "CentralPark_NY") |>
 
 
 
-
+hex plot
 ```{r}
 weather_df |> 
   ggplot(aes(x = tmin, y = tmax)) +
@@ -140,5 +140,47 @@ weather_df |>
 
 
 ```
-1
+
+```{r}
+weather_df |> 
+  filter(name =="Molokai_HI") |> 
+  ggplot(aes(x = date, y = tmax)) + geom_line(alpha=.5)+geom_point(size=0.5)
+```
+
+
+
+## univariate plotiing
+
+histogram
+
+```{r}
+ggplot(weather_df, aes(x = tmax, fill = name)) + geom_histogram(position  = "dodge" )
+#position  = "dodge" means avoiding bars would not overlap each other
+
+#if comparing variables, you can use other plot, instead of histogram which is hard to see
+
+ggplot(weather_df, aes(x = tmax, fill = name)) + geom_density(alpha=.3, adjust=.5)
+#get smooth histogram, good to compare
+#adjust to limit condition and change plot??????
+```
+
+using boxplots!!!
+
+```{r}
+ggplot(weather_df, aes(y = tmax, x = name)) + geom_boxplot()
+```
+
+
+violin plots?
+```{r}
+ggplot(weather_df, aes(y = tmax, x = name)) + geom_violin()
+```
+
+ridge plot
+
+```{r}
+ggplot(weather_df, aes(x = tmax, y = name)) + geom_density_ridges()
+```
+
+
 

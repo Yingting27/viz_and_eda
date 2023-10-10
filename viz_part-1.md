@@ -245,6 +245,8 @@ weather_df |>  filter(name != "CentralPark_NY") |>
 
 ![](viz_part-1_files/figure-gfm/unnamed-chunk-11-4.png)<!-- -->
 
+hex plot
+
 ``` r
 weather_df |> 
   ggplot(aes(x = tmin, y = tmax)) +
@@ -253,4 +255,78 @@ weather_df |>
 
     ## Warning: Removed 17 rows containing non-finite values (`stat_binhex()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-12-1.png)<!-- --> 1
+![](viz_part-1_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+weather_df |> 
+  filter(name =="Molokai_HI") |> 
+  ggplot(aes(x = date, y = tmax)) + geom_line(alpha=.5)+geom_point(size=0.5)
+```
+
+    ## Warning: Removed 1 rows containing missing values (`geom_point()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+## univariate plotiing
+
+histogram
+
+``` r
+ggplot(weather_df, aes(x = tmax, fill = name)) + geom_histogram(position  = "dodge" )
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_bin()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+``` r
+#position  = "dodge" means avoiding bars would not overlap each other
+
+#if comparing variables, you can use other plot, instead of histogram which is hard to see
+
+ggplot(weather_df, aes(x = tmax, fill = name)) + geom_density(alpha=.3, adjust=.5)
+```
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_density()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
+
+``` r
+#get smooth histogram, good to compare
+#adjust to limit condition and change plot??????
+```
+
+using boxplots!!!
+
+``` r
+ggplot(weather_df, aes(y = tmax, x = name)) + geom_boxplot()
+```
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_boxplot()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+violin plots?
+
+``` r
+ggplot(weather_df, aes(y = tmax, x = name)) + geom_violin()
+```
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_ydensity()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+
+ridge plot
+
+``` r
+ggplot(weather_df, aes(x = tmax, y = name)) + geom_density_ridges()
+```
+
+    ## Picking joint bandwidth of 1.54
+
+    ## Warning: Removed 17 rows containing non-finite values
+    ## (`stat_density_ridges()`).
+
+![](viz_part-1_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
