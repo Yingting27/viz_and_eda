@@ -8,6 +8,13 @@ output: github_document
 ```{r}
 library(tidyverse)
 library(ggridges)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+#set the figure width to be six everywhere and the aspect ratio to be 0.6. And this out width means that it's going to take up 90% of the width of like an html document or a word document.
 ```
 
 
@@ -183,4 +190,32 @@ ggplot(weather_df, aes(x = tmax, y = name)) + geom_density_ridges()
 ```
 
 
+## saving and embedding plots
 
+```{r}
+ggp_weather = 
+weather_df |> 
+  ggplot(aes(x = tmin, y = tmax))+ geom_point()
+
+ggp_weather
+
+ggsave("results/ggp_weather.pdf", ggp_weather)
+#just name it and save it as the types of file what you want
+
+```
+
+
+```{r, fig.width=12, fig.height=12}
+ggp_weather
+#make the picture bigger and heigter, change the size of all picture
+
+```
+
+
+```{r, fig.width=6, fig.asp=.6}
+ggp_weather
+#asep: So how tall the plot is divided by how wide the plot is?
+
+#So 0.6 means a little bit wider than it is tall.
+
+```

@@ -20,6 +20,13 @@ library(tidyverse)
 
 ``` r
 library(ggridges)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+#set the figure width to be six everywhere and the aspect ratio to be 0.6. And this out width means that it's going to take up 90% of the width of like an html document or a word document.
 ```
 
 Get the data for plotting today
@@ -72,7 +79,7 @@ ggplot(weather_df, aes(x = tmin, y = tmax)) + geom_point()
 
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-3-1.png" width="90%" />
 
 ``` r
 #before geom, this just a picture without any plot or data in it, because we dont show what types of plot we want
@@ -86,7 +93,7 @@ weather_df |>
 ggplot(aes(x = tmin, y = tmax)) + geom_point()
 ```
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-4-1.png" width="90%" />
 
 ``` r
 ggp_nyc_weather = 
@@ -97,7 +104,7 @@ ggplot(aes(x = tmin, y = tmax)) + geom_point()
 ggp_nyc_weather
 ```
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-5-1.png" width="90%" />
 
 ## Fancy plot
 
@@ -111,7 +118,7 @@ ggplot(weather_df, aes(x= tmin, y = tmax, color = name)) + geom_point() + geom_s
 
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-6-1.png" width="90%" />
 
 ``` r
 # name variable with color
@@ -128,7 +135,7 @@ ggplot(weather_df, aes(x= tmin, y = tmax)) + geom_point(aes(color = name)) + geo
 
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-7-1.png" width="90%" />
 
 ``` r
 #mention particular color lines
@@ -145,7 +152,7 @@ ggplot(weather_df, aes(x= tmin, y = tmax)) + geom_point(aes(color = name) , alph
 
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-8-1.png" width="90%" />
 
 ``` r
 #alpha to make plot more transparent, 0.3, which means 70% ok
@@ -164,7 +171,7 @@ ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) + geom_point(alpha = 0
 
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-9-1.png" width="90%" />
 
 ``` r
 #there are still too much events, using facet function to show each variable events, using "."to say 'put everything on this row' and ~ name means sepate name to each row (show name in each column)
@@ -178,7 +185,7 @@ ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) + geom_point(alpha = 0
     ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
     ## Removed 17 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-9-2.png" width="90%" />
 
 ``` r
 # this would give three names of rows
@@ -197,7 +204,7 @@ ggplot(weather_df, aes(x = date, y = tmax, color = name)) + geom_point(aes(size 
 
     ## Warning: Removed 19 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-10-1.png" width="90%" />
 
 try assigning a specific color
 
@@ -208,7 +215,7 @@ weather_df |>
   geom_point( )
 ```
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-11-1.png" width="90%" />
 
 ``` r
 #one way: adding color =  in geom_point. when you doing the color inside ggplot, this would not do that as you are taking variable in the dataset and mapping them on colors(be careful for this)
@@ -221,7 +228,7 @@ weather_df |>
 
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-11-2.png" width="90%" />
 
 ``` r
 # if you have two options:
@@ -232,7 +239,7 @@ weather_df |>  filter(name != "CentralPark_NY") |>
 
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-11-3.png" width="90%" />
 
 ``` r
 #always say alpha size
@@ -243,7 +250,7 @@ weather_df |>  filter(name != "CentralPark_NY") |>
 
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-11-4.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-11-4.png" width="90%" />
 
 hex plot
 
@@ -255,7 +262,7 @@ weather_df |>
 
     ## Warning: Removed 17 rows containing non-finite values (`stat_binhex()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-12-1.png" width="90%" />
 
 ``` r
 weather_df |> 
@@ -265,7 +272,7 @@ weather_df |>
 
     ## Warning: Removed 1 rows containing missing values (`geom_point()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-13-1.png" width="90%" />
 
 ## univariate plotiing
 
@@ -279,7 +286,7 @@ ggplot(weather_df, aes(x = tmax, fill = name)) + geom_histogram(position  = "dod
 
     ## Warning: Removed 17 rows containing non-finite values (`stat_bin()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-14-1.png" width="90%" />
 
 ``` r
 #position  = "dodge" means avoiding bars would not overlap each other
@@ -291,7 +298,7 @@ ggplot(weather_df, aes(x = tmax, fill = name)) + geom_density(alpha=.3, adjust=.
 
     ## Warning: Removed 17 rows containing non-finite values (`stat_density()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-14-2.png" width="90%" />
 
 ``` r
 #get smooth histogram, good to compare
@@ -306,7 +313,7 @@ ggplot(weather_df, aes(y = tmax, x = name)) + geom_boxplot()
 
     ## Warning: Removed 17 rows containing non-finite values (`stat_boxplot()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-15-1.png" width="90%" />
 
 violin plots?
 
@@ -316,7 +323,7 @@ ggplot(weather_df, aes(y = tmax, x = name)) + geom_violin()
 
     ## Warning: Removed 17 rows containing non-finite values (`stat_ydensity()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-16-1.png" width="90%" />
 
 ridge plot
 
@@ -329,4 +336,56 @@ ggplot(weather_df, aes(x = tmax, y = name)) + geom_density_ridges()
     ## Warning: Removed 17 rows containing non-finite values
     ## (`stat_density_ridges()`).
 
-![](viz_part-1_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-17-1.png" width="90%" />
+
+## saving and embedding plots
+
+``` r
+ggp_weather = 
+weather_df |> 
+  ggplot(aes(x = tmin, y = tmax))+ geom_point()
+
+ggp_weather
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-18-1.png" width="90%" />
+
+``` r
+ggsave("results/ggp_weather.pdf", ggp_weather)
+```
+
+    ## Saving 6 x 3.6 in image
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+``` r
+#just name it and save it as the types of file what you want
+```
+
+``` r
+ggp_weather
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-19-1.png" width="90%" />
+
+``` r
+#make the picture bigger and heigter, change the size of all picture
+```
+
+``` r
+ggp_weather
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+<img src="viz_part-1_files/figure-gfm/unnamed-chunk-20-1.png" width="90%" />
+
+``` r
+#asep: So how tall the plot is divided by how wide the plot is?
+
+#So 0.6 means a little bit wider than it is tall.
+```
